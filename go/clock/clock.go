@@ -27,14 +27,14 @@ func (c Clock) String() string {
 	var minutes = c.minutes;
 	var hourInc = 0;
 
-	if (minutes > 59)  {
+	if (minutes != 0)  {
 		hourInc = (c.minutes / 60);
 		minutes = c.minutes % 60;
 	}
 
 	if (minutes < 0) {
-		minutes = 60 % (-minutes);
-		hour--;
+		minutes = 60 + minutes;
+		hourInc --;
 	}
 
 	hour += hourInc;
@@ -51,12 +51,13 @@ func (c Clock) String() string {
 
 func (c Clock) Add(minutes int) Clock {
 	if (minutes + c.minutes > 59) {
-		c.minutes = 0;
-		c.hours++;
+		c.minutes = (minutes + c.minutes) % 60;
+		c.hours;
 	} else {
 		c.minutes += minutes;
 	}
 
+	if ()
 	return c;
 }
 
