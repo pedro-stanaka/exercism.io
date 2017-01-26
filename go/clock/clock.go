@@ -19,45 +19,47 @@ type Clock struct {
 } // Complete the type definition.  Pick a suitable data type.
 
 func New(hour, minute int) Clock {
+
+	var hourInc = 0;
+
+	if (minute != 0) {
+		hourInc = (minute / 60);
+		minute = minute % 60;
+	}
+
+	if (minute < 0) {
+		minute = 60 + minute;
+		hourInc--;
+	}
+
+	hour += hourInc;
+
+	if (hour > 23) {
+		hour = hour % 24;
+	} else if (hour < 0) {
+		hour = (-hour) % 24;
+		hour = 24 - hour;
+	}
+
 	return Clock{hour, minute}
 }
 
 func (c Clock) String() string {
-	var hour = c.hours;
-	var minutes = c.minutes;
-	var hourInc = 0;
-
-	if (minutes != 0)  {
-		hourInc = (c.minutes / 60);
-		minutes = c.minutes % 60;
-	}
-
-	if (minutes < 0) {
-		minutes = 60 + minutes;
-		hourInc --;
-	}
-
-	hour += hourInc;
-	
-	if (hour > 23) {
-		hour = hour % 24;
-	} else if (hour < 0) {
-		hour = -hour % 24;
-		hour = 24-hour;
-	}
-
-	return fmt.Sprintf("%02d:%02d", hour, minutes)
+	return fmt.Sprintf("%02d:%02d", c.hours, c.minutes)
 }
 
 func (c Clock) Add(minutes int) Clock {
 	if (minutes + c.minutes > 59) {
 		c.minutes = (minutes + c.minutes) % 60;
-		c.hours;
+		c.hours = c.hours + ((c.minutes + minutes)/60);
 	} else {
 		c.minutes += minutes;
 	}
 
-	if ()
+	if (c.hours > 23) {
+		c.hours = c.hours % 24;
+	}
+
 	return c;
 }
 
