@@ -49,18 +49,39 @@ func (c Clock) String() string {
 }
 
 func (c Clock) Add(minutes int) Clock {
-	if (minutes + c.minutes > 59) {
-		c.minutes = (minutes + c.minutes) % 60;
-		c.hours = c.hours + ((c.minutes + minutes)/60);
-	} else {
-		c.minutes += minutes;
+	
+	var hourInc = 0;
+
+	c.minutes += minutes;
+	hourInc = (c.minutes / 60);
+	c.minutes = c.minutes % 60;
+
+	if (c.minutes < 0) {
+		c.minutes = 60 + c.minutes;
+		c.hours--;
+	}
+	
+	c.hours += hourInc;
+
+	if (c.hours > 23) {
+		c.hours = c.hours % 24;
+	} else if (c.hours < 0) {
+		c.hours = (-c.hours) % 24;
+		c.hours = 24 - c.hours;
 	}
 
 	if (c.hours > 23) {
 		c.hours = c.hours % 24;
 	}
-
+	
 	return c;
+}
+
+func abs(i int) int {
+	if (i < 0) {
+		return -i;
+	}
+	return i;
 }
 
 // Remember to delete all of the stub comments.
