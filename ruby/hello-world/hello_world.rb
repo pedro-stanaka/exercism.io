@@ -1,10 +1,7 @@
 
 class HelloWorld 
 	def self.hello(pname = nil)
-		if pname.nil?
-			pname = "World"	
-		end
-
+		pname = "World" if pname.nil?
 		"Hello, #{pname}!"
 	end
 end
