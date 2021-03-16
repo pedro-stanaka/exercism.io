@@ -12,22 +12,26 @@ class BinarySearch
     end
 
     def search_for(item)
-        return nil if @data.length == 0
-        return 0 if @data.length == 1 and @data[0] == item
+        return if data.length == 0
+        return 0 if data.length == 1 and data[0] == item
         
-        do_search(item, @data)
+        do_search(item, data)
     end
 
-    def do_search(item, data, offset = 0)
-        return nil if data.length == 1 and data[0] != item
+    private
+    
+    attr_reader :data
+    
+    def do_search(item, search_spc, offset = 0)
+        return if search_spc.length == 1 and search_spc[0] != item
         
-        mid_section = (data.length/2).ceil
-        return mid_section + offset if data[mid_section] == item
+        mid_section = (search_spc.length/2).ceil
+        return mid_section + offset if search_spc[mid_section] == item
 
         if item > data[mid_section]
-            do_search(item, data[mid_section..-1], mid_section + offset)
+            do_search(item, search_spc[mid_section..-1], mid_section + offset)
         else
-            do_search(item, data[0..mid_section-1], offset)
+            do_search(item, search_spc[0..mid_section-1], offset)
         end
     end
 end
