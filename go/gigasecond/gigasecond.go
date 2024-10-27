@@ -1,10 +1,10 @@
-// Package clause.
 package gigasecond
 
-// Constant declaration.
-const testVersion = ? // find the value in gigasecond_test.go
+import "time"
 
-// API function.  It uses a type from the Go standard library.
-func AddGigasecond(time.Time) time.Time
+const gigaSecond = 1e9 * time.Second
 
-// Reviewers don't think much of stub comments.  Replace or remove.
+// AddGigasecond adds 1e9 seconds to the time passed in parameter, returning the result.
+func AddGigasecond(t time.Time) time.Time {
+	return t.Add(gigaSecond)
+}
